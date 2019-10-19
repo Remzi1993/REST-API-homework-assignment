@@ -11,8 +11,8 @@ const corsMiddleWare = cors()
 const port = process.env.PORT || 3000;
 const app = express();
 const sequelizeRest = require('./sequelize-rest')
-// const router = require('./sequelize-rest');
-
+const messagesAPI = require('./messages-api')
+const db = require('./db')
 
 // If req.body is undefined
 // - use bodyparser
@@ -23,11 +23,12 @@ app
     .use(corsMiddleWare)
     .use(bodyParserMiddleWare)
     .use(sequelizeRest.router)
+    .use(messagesAPI)
     .listen(port, () => {
         console.log(`App is listening on port ${port}`);
     });
 
-sequelizeRest.db
+db
     .sync({
         force: true
     })

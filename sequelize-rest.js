@@ -1,8 +1,7 @@
 const Sequelize = require('sequelize');
 const { Router } = require('express');
+const db = require('./db')
 
-const databaseUrl = process.env.DATABASE_URL || 'postgres://postgres:test@localhost:5432/postgres';
-const db = new Sequelize(databaseUrl);
 
 const Movie = db.define("movie", {
     title: Sequelize.STRING,
@@ -94,7 +93,6 @@ router.delete("/movies/:movieId", (req, res, next) => {
 });
 
 module.exports = {
-    db,
     Movie,
     router
 }
